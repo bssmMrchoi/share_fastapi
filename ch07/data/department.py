@@ -22,3 +22,14 @@ def find_all(db:Session):
 def delete(db: Session, id: int):
     db.query(Department).filter(Department.id == id).delete()
     db.commit()
+
+
+def update(db: Session, department: Department, **kwargs):
+    for key, value in kwargs.items():
+        setattr(department, key, value)
+
+    db.commit()
+    db.refresh(department)
+    return department
+
+
