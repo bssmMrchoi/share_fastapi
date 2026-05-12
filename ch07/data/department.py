@@ -33,3 +33,6 @@ def update(db: Session, department: Department, **kwargs):
     return department
 
 
+def find_all_except_default(db: Session):
+    # '공통학과'를 제외한 모든 학과 조회
+    return db.query(Department).filter(Department.name != "공통학과").all()

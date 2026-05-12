@@ -4,6 +4,7 @@ from ch07.db_connect import Session, get_db
 from ch07.schema.department import DepartmentResponse, DepartmentCreate, DepartmentUpdate
 from ch07.schema.student import StudentResponse
 from ch07.service import department as service
+from ch07.service import student as student_service
 
 router = APIRouter(prefix="/dept")
 
@@ -27,5 +28,6 @@ def get_students_by_dept(dept_id: int, db: Session = Depends(get_db)):
 def update_dept(dept_id: int, data: DepartmentUpdate, db: Session = Depends(get_db)):
     return service.update_dept(db, dept_id, data)
 
-
-
+@router.post("/assign")
+def assign_department(db: Session = Depends(get_db)):
+    return student_service.assign_dept(db)
